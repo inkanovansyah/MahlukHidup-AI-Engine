@@ -41,6 +41,9 @@ builder.Services.AddCors(options =>
         policy => policy.WithOrigins("http://localhost:5173").AllowAnyHeader().AllowAnyMethod());
 });
 
+// Authorization
+builder.Services.AddAuthorization();
+
 var app = builder.Build();
 
 // Pipeline Configuration

@@ -127,3 +127,4 @@ D:\inka\mahlukhidup\backend\obj\Debug\net9.0\refint\MahlukHidup.Backend.dll
 D:\inka\mahlukhidup\backend\obj\Debug\net9.0\MahlukHidup.Backend.pdb
 D:\inka\mahlukhidup\backend\obj\Debug\net9.0\MahlukHidup.Backend.genruntimeconfig.cache
 D:\inka\mahlukhidup\backend\obj\Debug\net9.0\ref\MahlukHidup.Backend.dll
+D:\inka\mahlukhidup\backend\obj\Debug\net9.0\MahlukHidup.Backend.sourcelink.json
