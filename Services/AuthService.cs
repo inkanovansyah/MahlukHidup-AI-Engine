@@ -24,13 +24,28 @@ public class AuthService : IAuthService
     public async Task<AuthResponse?> Login(LoginRequest request)
     {
         var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == request.Email);
-        
+
         if (user == null || !BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
         {
             return null;
         }
 
         var token = CreateToken(user);
+
+        // Catat aktivitas Login berhasil
+        _context.RecordActivities.Add(new RecordActivity
+        {
+            Action = "Login",
+            EntityName = "User",
+            EntityId = user.Id.ToString(),
+            Details = $"User dengan email {user.Email} melakukan login.",
+            CreatedBy = user.Id,
+            CreatedAt = DateTime.UtcNow,
+            IsActive = true,
+            IsDeleted = false
+        });
+
+        await _context.SaveChangesAsync();
 
         return new AuthResponse
         {
@@ -59,6 +74,20 @@ public class AuthService : IAuthService
         };
 
         _context.Users.Add(user);
+
+        // Catat aktivitas Register
+        _context.RecordActivities.Add(new RecordActivity
+        {
+            Action = "Register",
+            EntityName = "User",
+            EntityId = user.Id.ToString(), // ID akan di-generate otomatis oleh database (sequential)
+            Details = $"User baru terdaftar dengan email {user.Email}.",
+            CreatedBy = user.Id,
+            CreatedAt = DateTime.UtcNow,
+            IsActive = true,
+            IsDeleted = false
+        });
+
         await _context.SaveChangesAsync();
 
         return user;

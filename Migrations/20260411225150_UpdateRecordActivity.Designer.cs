@@ -4,6 +4,7 @@ using MahlukHidup.Backend.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MahlukHidup.Backend.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260411225150_UpdateRecordActivity")]
+    partial class UpdateRecordActivity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,8 +38,8 @@ namespace MahlukHidup.Backend.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int?>("CreatedBy")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("CreatedBy")
+                        .HasColumnType("char(36)");
 
                     b.Property<string>("CropType")
                         .IsRequired()
@@ -79,8 +82,8 @@ namespace MahlukHidup.Backend.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int?>("UpdatedBy")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("UpdatedBy")
+                        .HasColumnType("char(36)");
 
                     b.HasKey("Id");
 
@@ -107,8 +110,8 @@ namespace MahlukHidup.Backend.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int?>("CreatedBy")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("CreatedBy")
+                        .HasColumnType("char(36)");
 
                     b.Property<string>("Email")
                         .HasColumnType("longtext");
@@ -136,8 +139,8 @@ namespace MahlukHidup.Backend.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int?>("UpdatedBy")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("UpdatedBy")
+                        .HasColumnType("char(36)");
 
                     b.HasKey("Id");
 
@@ -166,8 +169,8 @@ namespace MahlukHidup.Backend.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int?>("CreatedBy")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("CreatedBy")
+                        .HasColumnType("char(36)");
 
                     b.Property<string>("Description")
                         .HasColumnType("longtext");
@@ -195,8 +198,8 @@ namespace MahlukHidup.Backend.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int?>("UpdatedBy")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("UpdatedBy")
+                        .HasColumnType("char(36)");
 
                     b.HasKey("Id");
 
@@ -217,8 +220,8 @@ namespace MahlukHidup.Backend.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int?>("CreatedBy")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("CreatedBy")
+                        .HasColumnType("char(36)");
 
                     b.Property<string>("CurrentTask")
                         .IsRequired()
@@ -240,8 +243,8 @@ namespace MahlukHidup.Backend.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int?>("UpdatedBy")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("UpdatedBy")
+                        .HasColumnType("char(36)");
 
                     b.HasKey("Id");
 
@@ -257,8 +260,8 @@ namespace MahlukHidup.Backend.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int?>("CreatedBy")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("CreatedBy")
+                        .HasColumnType("char(36)");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -284,8 +287,8 @@ namespace MahlukHidup.Backend.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int?>("UpdatedBy")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("UpdatedBy")
+                        .HasColumnType("char(36)");
 
                     b.HasKey("Id");
 
@@ -301,8 +304,8 @@ namespace MahlukHidup.Backend.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int?>("CreatedBy")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("CreatedBy")
+                        .HasColumnType("char(36)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("tinyint(1)");
@@ -320,8 +323,8 @@ namespace MahlukHidup.Backend.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int?>("UpdatedBy")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("UpdatedBy")
+                        .HasColumnType("char(36)");
 
                     b.Property<decimal>("YieldTonnage")
                         .HasColumnType("decimal(65,30)");
@@ -344,8 +347,8 @@ namespace MahlukHidup.Backend.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int?>("CreatedBy")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("CreatedBy")
+                        .HasColumnType("char(36)");
 
                     b.Property<string>("Details")
                         .IsRequired()
@@ -368,8 +371,8 @@ namespace MahlukHidup.Backend.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int?>("UpdatedBy")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("UpdatedBy")
+                        .HasColumnType("char(36)");
 
                     b.HasKey("Id");
 
@@ -392,8 +395,8 @@ namespace MahlukHidup.Backend.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int?>("CreatedBy")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("CreatedBy")
+                        .HasColumnType("char(36)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("tinyint(1)");
@@ -407,8 +410,8 @@ namespace MahlukHidup.Backend.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int?>("UpdatedBy")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("UpdatedBy")
+                        .HasColumnType("char(36)");
 
                     b.HasKey("Id");
 
@@ -430,8 +433,8 @@ namespace MahlukHidup.Backend.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int?>("CreatedBy")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("CreatedBy")
+                        .HasColumnType("char(36)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("tinyint(1)");
@@ -448,8 +451,8 @@ namespace MahlukHidup.Backend.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int?>("UpdatedBy")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("UpdatedBy")
+                        .HasColumnType("char(36)");
 
                     b.HasKey("Id");
 
@@ -474,8 +477,8 @@ namespace MahlukHidup.Backend.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int?>("CreatedBy")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("CreatedBy")
+                        .HasColumnType("char(36)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("tinyint(1)");
@@ -490,8 +493,8 @@ namespace MahlukHidup.Backend.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int?>("UpdatedBy")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("UpdatedBy")
+                        .HasColumnType("char(36)");
 
                     b.HasKey("Id");
 
@@ -512,8 +515,8 @@ namespace MahlukHidup.Backend.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int?>("CreatedBy")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("CreatedBy")
+                        .HasColumnType("char(36)");
 
                     b.Property<string>("FertilizerStatus")
                         .IsRequired()
@@ -534,8 +537,8 @@ namespace MahlukHidup.Backend.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int?>("UpdatedBy")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("UpdatedBy")
+                        .HasColumnType("char(36)");
 
                     b.HasKey("Id");
 
@@ -547,17 +550,15 @@ namespace MahlukHidup.Backend.Migrations
 
             modelBuilder.Entity("MahlukHidup.Backend.Models.User", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("char(36)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int?>("CreatedBy")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("CreatedBy")
+                        .HasColumnType("char(36)");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -603,8 +604,8 @@ namespace MahlukHidup.Backend.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int?>("UpdatedBy")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("UpdatedBy")
+                        .HasColumnType("char(36)");
 
                     b.HasKey("Id");
 
