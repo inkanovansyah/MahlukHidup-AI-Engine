@@ -36,6 +36,6 @@ public class CompanyDto
     public string? Email { get; set; }
     public string? LogoUrl { get; set; }
     public bool IsActive { get; set; }
-    public DateTime CreateDate { get; set; }
+    public DateTime CreatedAt { get; set; }
     public List<BranchDto>? Branches { get; set; }
 }

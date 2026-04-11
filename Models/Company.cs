@@ -13,7 +13,6 @@ public class Company : BaseEntity
     public string? Phone { get; set; }
     public string? Email { get; set; }
     public string? LogoUrl { get; set; }
-    public bool IsActive { get; set; } = true;
 
     // Navigation Properties
     public ICollection<Branch> Branches { get; set; } = new List<Branch>();

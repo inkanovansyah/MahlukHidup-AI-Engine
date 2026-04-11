@@ -38,5 +38,5 @@ public class BranchDto
     public double? Latitude { get; set; }
     public double? Longitude { get; set; }
     public bool IsActive { get; set; }
-    public DateTime CreateDate { get; set; }
+    public DateTime CreatedAt { get; set; }
 }

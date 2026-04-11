@@ -20,7 +20,7 @@ public static class BranchEndpoints
         {
             var branches = await context.Branches
                 .Include(b => b.Company)
-                .OrderByDescending(b => b.CreateDate)
+                .OrderByDescending(b => b.CreatedAt)
                 .ToListAsync();
 
             var result = branches.Select(b => new BranchDto
@@ -36,7 +36,7 @@ public static class BranchEndpoints
                 Latitude = b.Latitude,
                 Longitude = b.Longitude,
                 IsActive = b.IsActive,
-                CreateDate = b.CreateDate
+                CreatedAt = b.CreatedAt
             });
 
             return Results.Ok(result);
@@ -49,7 +49,7 @@ public static class BranchEndpoints
             var branches = await context.Branches
                 .Include(b => b.Company)
                 .Where(b => b.CompanyId == companyId)
-                .OrderByDescending(b => b.CreateDate)
+                .OrderByDescending(b => b.CreatedAt)
                 .ToListAsync();
 
             var result = branches.Select(b => new BranchDto
@@ -65,7 +65,7 @@ public static class BranchEndpoints
                 Latitude = b.Latitude,
                 Longitude = b.Longitude,
                 IsActive = b.IsActive,
-                CreateDate = b.CreateDate
+                CreatedAt = b.CreatedAt
             });
 
             return Results.Ok(result);
@@ -94,7 +94,7 @@ public static class BranchEndpoints
                 Latitude = branch.Latitude,
                 Longitude = branch.Longitude,
                 IsActive = branch.IsActive,
-                CreateDate = branch.CreateDate
+                CreatedAt = branch.CreatedAt
             };
 
             return Results.Ok(result);
@@ -141,7 +141,7 @@ public static class BranchEndpoints
                 Latitude = branch.Latitude,
                 Longitude = branch.Longitude,
                 IsActive = branch.IsActive,
-                CreateDate = branch.CreateDate
+                CreatedAt = branch.CreatedAt
             });
         })
         .WithName("CreateBranch");
@@ -160,7 +160,7 @@ public static class BranchEndpoints
             if (dto.Longitude.HasValue) branch.Longitude = dto.Longitude.Value;
             if (dto.IsActive.HasValue) branch.IsActive = dto.IsActive.Value;
             
-            branch.UpdateDate = DateTime.UtcNow;
+            branch.UpdatedAt = DateTime.UtcNow;
 
             await context.SaveChangesAsync();
 
@@ -179,7 +179,7 @@ public static class BranchEndpoints
                 Latitude = branch.Latitude,
                 Longitude = branch.Longitude,
                 IsActive = branch.IsActive,
-                CreateDate = branch.CreateDate
+                CreatedAt = branch.CreatedAt
             });
         })
         .WithName("UpdateBranch");
@@ -191,7 +191,7 @@ public static class BranchEndpoints
             if (branch == null) return Results.NotFound("Branch not found.");
 
             branch.IsActive = false;
-            branch.UpdateDate = DateTime.UtcNow;
+            branch.UpdatedAt = DateTime.UtcNow;
 
             await context.SaveChangesAsync();
 

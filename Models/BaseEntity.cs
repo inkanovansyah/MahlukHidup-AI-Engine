@@ -5,7 +5,9 @@ namespace MahlukHidup.Backend.Models;
 public abstract class BaseEntity
 {
     public bool IsActive { get; set; } = true;
-    public bool IsModified { get; set; } = false;
-    public DateTime CreateDate { get; set; } = DateTime.UtcNow;
-    public DateTime? UpdateDate { get; set; }
+    public bool IsDeleted { get; set; } = false;
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public DateTime? UpdatedAt { get; set; }
+    public Guid? CreatedBy { get; set; }
+    public Guid? UpdatedBy { get; set; }
 }

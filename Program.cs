@@ -62,7 +62,8 @@ app.MapSpeciesEndpoints();
 app.MapCompanyEndpoints();
 app.MapBranchEndpoints();
 
-app.MapGet("/", () => "Mahluk Hidup API (Modular Architecture) is running!")
+app.MapGet("/", () => Results.NotFound())
+   .ExcludeFromDescription()
    .WithName("GetRoot");
 
 app.Run("http://localhost:4000");

@@ -13,7 +13,6 @@ public class Branch : BaseEntity
     public string? Email { get; set; }
     public double? Latitude { get; set; }
     public double? Longitude { get; set; }
-    public bool IsActive { get; set; } = true;
 
     // Navigation Properties
     public Company? Company { get; set; }

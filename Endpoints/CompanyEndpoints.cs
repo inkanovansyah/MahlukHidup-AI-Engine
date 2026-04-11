@@ -20,7 +20,7 @@ public static class CompanyEndpoints
         {
             var companies = await context.Companies
                 .Include(c => c.Branches)
-                .OrderByDescending(c => c.CreateDate)
+                .OrderByDescending(c => c.CreatedAt)
                 .ToListAsync();
 
             var result = companies.Select(c => new CompanyDto
@@ -34,7 +34,7 @@ public static class CompanyEndpoints
                 Email = c.Email,
                 LogoUrl = c.LogoUrl,
                 IsActive = c.IsActive,
-                CreateDate = c.CreateDate,
+                CreatedAt = c.CreatedAt,
                 Branches = c.Branches.Select(b => new BranchDto
                 {
                     Id = b.Id,
@@ -48,7 +48,7 @@ public static class CompanyEndpoints
                     Latitude = b.Latitude,
                     Longitude = b.Longitude,
                     IsActive = b.IsActive,
-                    CreateDate = b.CreateDate
+                    CreatedAt = b.CreatedAt
                 }).ToList()
             });
 
@@ -76,7 +76,7 @@ public static class CompanyEndpoints
                 Email = company.Email,
                 LogoUrl = company.LogoUrl,
                 IsActive = company.IsActive,
-                CreateDate = company.CreateDate,
+                CreatedAt = company.CreatedAt,
                 Branches = company.Branches.Select(b => new BranchDto
                 {
                     Id = b.Id,
@@ -90,7 +90,7 @@ public static class CompanyEndpoints
                     Latitude = b.Latitude,
                     Longitude = b.Longitude,
                     IsActive = b.IsActive,
-                    CreateDate = b.CreateDate
+                    CreatedAt = b.CreatedAt
                 }).ToList()
             };
 
@@ -131,7 +131,7 @@ public static class CompanyEndpoints
                 Email = company.Email,
                 LogoUrl = company.LogoUrl,
                 IsActive = company.IsActive,
-                CreateDate = company.CreateDate,
+                CreatedAt = company.CreatedAt,
                 Branches = new List<BranchDto>()
             });
         })
@@ -151,7 +151,7 @@ public static class CompanyEndpoints
             if (dto.LogoUrl != null) company.LogoUrl = dto.LogoUrl;
             if (dto.IsActive.HasValue) company.IsActive = dto.IsActive.Value;
             
-            company.UpdateDate = DateTime.UtcNow;
+            company.UpdatedAt = DateTime.UtcNow;
 
             await context.SaveChangesAsync();
 
@@ -166,7 +166,7 @@ public static class CompanyEndpoints
                 Email = company.Email,
                 LogoUrl = company.LogoUrl,
                 IsActive = company.IsActive,
-                CreateDate = company.CreateDate
+                CreatedAt = company.CreatedAt
             });
         })
         .WithName("UpdateCompany");
@@ -182,12 +182,12 @@ public static class CompanyEndpoints
 
             // Soft delete: deactivate company and all branches
             company.IsActive = false;
-            company.UpdateDate = DateTime.UtcNow;
+            company.UpdatedAt = DateTime.UtcNow;
             
             foreach (var branch in company.Branches)
             {
                 branch.IsActive = false;
-                branch.UpdateDate = DateTime.UtcNow;
+                branch.UpdatedAt = DateTime.UtcNow;
             }
 
             await context.SaveChangesAsync();
