@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MahlukHidup.Backend")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9cd5086e173bb6765fe04770c5bb4d8c0aa99d5d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7e0cc2de4561a3c3a5cba7d2d3456d2013d78904")]
 [assembly: System.Reflection.AssemblyProductAttribute("MahlukHidup.Backend")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MahlukHidup.Backend")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
