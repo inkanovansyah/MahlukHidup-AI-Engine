@@ -22,4 +22,5 @@ public class AgriculturalSector : BaseEntity
     public SectorClimate? Climate { get; set; }
     public SectorFinance? Finance { get; set; }
     public ICollection<SectorPhoto> Photos { get; set; } = new List<SectorPhoto>();
+    public ICollection<DiseasePhoto> DiseasePhotos { get; set; } = new List<DiseasePhoto>();
 }

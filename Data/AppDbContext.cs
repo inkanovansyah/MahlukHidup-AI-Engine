@@ -24,11 +24,13 @@ public class AppDbContext : DbContext
     public DbSet<Branch> Branches => Set<Branch>();
 
     public DbSet<RecordActivity> RecordActivities => Set<RecordActivity>();
-    
+
+    public DbSet<DiseasePhoto> DiseasePhotos => Set<DiseasePhoto>();
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-        
+
         // Konfigurasi tabel User
         modelBuilder.Entity<User>(entity =>
         {
@@ -56,6 +58,23 @@ public class AppDbContext : DbContext
                   .WithMany(c => c.Branches)
                   .HasForeignKey(b => b.CompanyId)
                   .OnDelete(DeleteBehavior.Cascade);
+        });
+
+        // Konfigurasi tabel DiseasePhoto
+        modelBuilder.Entity<DiseasePhoto>(entity =>
+        {
+            entity.Property(d => d.PhotoUrl).IsRequired().HasMaxLength(500);
+            entity.Property(d => d.FileName).IsRequired().HasMaxLength(255);
+
+            entity.HasOne(d => d.Sector)
+                  .WithMany(s => s.DiseasePhotos)
+                  .HasForeignKey(d => d.AgriculturalSectorId)
+                  .OnDelete(DeleteBehavior.Restrict);
+
+            entity.HasOne(d => d.Company)
+                  .WithMany()
+                  .HasForeignKey(d => d.CompanyId)
+                  .OnDelete(DeleteBehavior.Restrict);
         });
     }
 }

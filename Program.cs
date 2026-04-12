@@ -15,6 +15,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 // 2. Dependency Injection
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddSingleton<IPhotoUploadService, PhotoUploadService>();
 
 // 3. JWT Authentication Setup
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -55,12 +56,14 @@ if (app.Environment.IsDevelopment())
 app.UseCors("AllowViteFrontend");
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseStaticFiles();
 
 // 4. MAP ENDPOINTS (Modular & Clean)
 app.MapAuthEndpoints();
 app.MapSpeciesEndpoints();
 app.MapCompanyEndpoints();
 app.MapBranchEndpoints();
+app.MapDiseasePhotoEndpoints();
 
 app.MapGet("/", () => Results.NotFound())
    .ExcludeFromDescription()
