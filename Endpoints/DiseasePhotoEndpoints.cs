@@ -23,39 +23,42 @@ public static class DiseasePhotoEndpoints
         // Upload disease photo
         group.MapPost("/upload", async (
             IFormFile file,
-            DiseasePhotoUploadDto dto,
+            [FromForm] Guid agriculturalSectorId,
+            [FromForm] Guid companyId,
+            [FromForm] string? description,
+            [FromForm] DateTime? capturedAt,
             AppDbContext context,
             IPhotoUploadService uploadService) =>
         {
             try
             {
                 // Verify company exists and get name
-                var company = await context.Companies.FindAsync(dto.CompanyId);
+                var company = await context.Companies.FindAsync(companyId);
                 if (company == null)
                 {
                     return Results.NotFound(new { message = "Company tidak ditemukan." });
                 }
 
                 // Verify agricultural sector exists
-                var sector = await context.AgriculturalSectors.FindAsync(dto.AgriculturalSectorId);
+                var sector = await context.AgriculturalSectors.FindAsync(agriculturalSectorId);
                 if (sector == null)
                 {
                     return Results.NotFound(new { message = "Sector pertanian tidak ditemukan." });
                 }
 
                 // Upload file
-                var photoUrl = await uploadService.UploadDiseasePhotoAsync(file, company.Id, company.Name);
+                var photoUrl = await uploadService.UploadDiseasePhotoAsync(file, companyId, company.Name);
 
                 // Create disease photo record
                 var diseasePhoto = new DiseasePhoto
                 {
-                    AgriculturalSectorId = dto.AgriculturalSectorId,
-                    CompanyId = dto.CompanyId,
+                    AgriculturalSectorId = agriculturalSectorId,
+                    CompanyId = companyId,
                     PhotoUrl = photoUrl,
                     FileName = file.FileName,
                     FileSize = file.Length,
-                    Description = dto.Description,
-                    CapturedAt = dto.CapturedAt ?? DateTime.UtcNow
+                    Description = description,
+                    CapturedAt = capturedAt ?? DateTime.UtcNow
                 };
 
                 context.DiseasePhotos.Add(diseasePhoto);
