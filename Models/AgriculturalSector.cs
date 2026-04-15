@@ -21,6 +21,9 @@ public class AgriculturalSector : BaseEntity
     public SectorSoil? Soil { get; set; }
     public SectorClimate? Climate { get; set; }
     public SectorFinance? Finance { get; set; }
+    public SectorWater? Water { get; set; }
+    public SectorYield? Yield { get; set; }
+    public SectorPest? Pest { get; set; }
     public ICollection<SectorPhoto> Photos { get; set; } = new List<SectorPhoto>();
     public ICollection<DiseasePhoto> DiseasePhotos { get; set; } = new List<DiseasePhoto>();
 }
