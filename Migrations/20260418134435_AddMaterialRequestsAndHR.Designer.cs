@@ -4,6 +4,7 @@ using MahlukHidup.Backend.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MahlukHidup.Backend.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260418134435_AddMaterialRequestsAndHR")]
+    partial class AddMaterialRequestsAndHR
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -172,9 +175,6 @@ namespace MahlukHidup.Backend.Migrations
                         .HasColumnType("tinyint(1)");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<bool>("IsMaster")
                         .HasColumnType("tinyint(1)");
 
                     b.Property<double?>("Latitude")
@@ -537,9 +537,6 @@ namespace MahlukHidup.Backend.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
-                    b.Property<Guid?>("BranchId")
-                        .HasColumnType("char(36)");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
@@ -582,8 +579,6 @@ namespace MahlukHidup.Backend.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("BranchId");
 
                     b.HasIndex("DepartmentId");
 
@@ -1049,9 +1044,6 @@ namespace MahlukHidup.Backend.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<Guid?>("BranchId")
-                        .HasColumnType("char(36)");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
@@ -1070,6 +1062,9 @@ namespace MahlukHidup.Backend.Migrations
                         .HasColumnType("tinyint(1)");
 
                     b.Property<bool>("IsDeleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool>("IsEmailVerified")
                         .HasColumnType("tinyint(1)");
 
                     b.Property<int?>("JobLevelId")
@@ -1112,8 +1107,6 @@ namespace MahlukHidup.Backend.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("BranchId");
 
                     b.HasIndex("DepartmentId");
 
@@ -1180,10 +1173,6 @@ namespace MahlukHidup.Backend.Migrations
 
             modelBuilder.Entity("MahlukHidup.Backend.Models.MaterialRequest", b =>
                 {
-                    b.HasOne("MahlukHidup.Backend.Models.Branch", "Branch")
-                        .WithMany()
-                        .HasForeignKey("BranchId");
-
                     b.HasOne("MahlukHidup.Backend.Models.Department", "Department")
                         .WithMany()
                         .HasForeignKey("DepartmentId")
@@ -1195,8 +1184,6 @@ namespace MahlukHidup.Backend.Migrations
                         .HasForeignKey("RequesterId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.Navigation("Branch");
 
                     b.Navigation("Department");
 
@@ -1293,10 +1280,6 @@ namespace MahlukHidup.Backend.Migrations
 
             modelBuilder.Entity("MahlukHidup.Backend.Models.User", b =>
                 {
-                    b.HasOne("MahlukHidup.Backend.Models.Branch", "Branch")
-                        .WithMany()
-                        .HasForeignKey("BranchId");
-
                     b.HasOne("MahlukHidup.Backend.Models.Department", "Department")
                         .WithMany()
                         .HasForeignKey("DepartmentId")
@@ -1316,8 +1299,6 @@ namespace MahlukHidup.Backend.Migrations
                         .WithMany()
                         .HasForeignKey("ReportsToUserId")
                         .OnDelete(DeleteBehavior.SetNull);
-
-                    b.Navigation("Branch");
 
                     b.Navigation("Department");
 

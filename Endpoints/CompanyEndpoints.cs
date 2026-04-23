@@ -48,6 +48,7 @@ public static class CompanyEndpoints
                     Latitude = b.Latitude,
                     Longitude = b.Longitude,
                     IsActive = b.IsActive,
+                    IsMaster = b.IsMaster,
                     CreatedAt = b.CreatedAt
                 }).ToList()
             });
@@ -90,6 +91,7 @@ public static class CompanyEndpoints
                     Latitude = b.Latitude,
                     Longitude = b.Longitude,
                     IsActive = b.IsActive,
+                    IsMaster = b.IsMaster,
                     CreatedAt = b.CreatedAt
                 }).ToList()
             };
@@ -195,5 +197,59 @@ public static class CompanyEndpoints
             return Results.Ok("Company and its branches deactivated.");
         })
         .WithName("DeleteCompany");
+
+        // ----------------------------------------------------
+        // BRANCHES MANAGEMENT (Nested under Company)
+        // ----------------------------------------------------
+
+        // POST: /api/companies/{companyId}/branches - Create new branch
+        group.MapPost("/{companyId:guid}/branches", async (Guid companyId, [FromBody] BranchCreateDto dto, AppDbContext context) =>
+        {
+            var company = await context.Companies.FindAsync(companyId);
+            if (company == null) return Results.NotFound("Company not found.");
+
+            // Check if code already exists
+            if (await context.Branches.AnyAsync(b => b.Code == dto.Code))
+                return Results.BadRequest("Branch code already exists.");
+
+            // Only one master branch per company
+            if (dto.IsMaster && await context.Branches.AnyAsync(b => b.CompanyId == companyId && b.IsMaster))
+                return Results.BadRequest("A master branch (PT Utama) already exists for this company.");
+
+            var branch = new Branch
+            {
+                CompanyId = companyId,
+                Name = dto.Name,
+                Code = dto.Code,
+                Address = dto.Address,
+                Phone = dto.Phone,
+                Email = dto.Email,
+                Latitude = dto.Latitude,
+                Longitude = dto.Longitude,
+                IsMaster = dto.IsMaster,
+                IsActive = true
+            };
+
+            context.Branches.Add(branch);
+            await context.SaveChangesAsync();
+
+            return Results.Created($"/api/companies/{companyId}/branches/{branch.Id}", new BranchDto
+            {
+                Id = branch.Id,
+                CompanyId = branch.CompanyId,
+                CompanyName = company.Name,
+                Name = branch.Name,
+                Code = branch.Code,
+                Address = branch.Address,
+                Phone = branch.Phone,
+                Email = branch.Email,
+                Latitude = branch.Latitude,
+                Longitude = branch.Longitude,
+                IsMaster = branch.IsMaster,
+                IsActive = branch.IsActive,
+                CreatedAt = branch.CreatedAt
+            });
+        })
+        .WithName("CreateCompanyBranch");
     }
 }

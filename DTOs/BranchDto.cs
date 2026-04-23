@@ -12,6 +12,7 @@ public class BranchCreateDto
     public string? Email { get; set; }
     public double? Latitude { get; set; }
     public double? Longitude { get; set; }
+    public bool IsMaster { get; set; } = false;
 }
 
 public class BranchUpdateDto
@@ -23,6 +24,7 @@ public class BranchUpdateDto
     public double? Latitude { get; set; }
     public double? Longitude { get; set; }
     public bool? IsActive { get; set; }
+    public bool? IsMaster { get; set; }
 }
 
 public class BranchDto
@@ -38,5 +40,6 @@ public class BranchDto
     public double? Latitude { get; set; }
     public double? Longitude { get; set; }
     public bool IsActive { get; set; }
+    public bool IsMaster { get; set; }
     public DateTime CreatedAt { get; set; }
 }

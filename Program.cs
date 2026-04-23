@@ -58,12 +58,14 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.UseStaticFiles();
 
-// 4. MAP ENDPOINTS (Modular & Clean)
+// Map Endpoints
 app.MapAuthEndpoints();
-app.MapSpeciesEndpoints();
 app.MapCompanyEndpoints();
 app.MapBranchEndpoints();
 app.MapDiseasePhotoEndpoints();
+app.MapSpeciesEndpoints();
+app.MapHREndpoints();
+app.MapMaterialRequestEndpoints();
 
 app.MapGet("/", () => Results.NotFound())
    .ExcludeFromDescription()

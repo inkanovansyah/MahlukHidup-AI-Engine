@@ -13,7 +13,11 @@ public class RegisterRequest
     public string Name { get; set; } = string.Empty;
     public string Email { get; set; } = string.Empty;
     public string Password { get; set; } = string.Empty;
-    public UserRole Role { get; set; } = UserRole.Operator;
+    
+    public int? DepartmentId { get; set; }
+    public int? JobLevelId { get; set; }
+    public int? JobPositionId { get; set; }
+    public int? ReportsToUserId { get; set; }
 }
 
 public class AuthResponse
@@ -27,5 +31,14 @@ public class UserDto
     public int Id { get; set; }
     public string Name { get; set; } = string.Empty;
     public string Email { get; set; } = string.Empty;
-    public string Role { get; set; } = string.Empty;
+    public string Role { get; set; } = string.Empty; // For frontend backward compatibility, we will map JobLevelName here
+    
+    // New HR fields
+    public int? DepartmentId { get; set; }
+    public string? DepartmentName { get; set; }
+    public int? JobLevelId { get; set; }
+    public string? JobLevelName { get; set; }
+    public int? JobPositionId { get; set; }
+    public string? JobPositionName { get; set; }
+    public int? JobLevelRank { get; set; }
 }

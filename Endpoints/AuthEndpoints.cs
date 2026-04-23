@@ -14,9 +14,16 @@ public static class AuthEndpoints
 
         group.MapPost("/register", async (RegisterRequest request, IAuthService authService) =>
         {
-            var user = await authService.Register(request);
-            if (user == null) return Results.BadRequest(new { error = "Email sudah digunakan." });
-            return Results.Ok(new { message = "Registrasi berhasil." });
+            try 
+            {
+                var user = await authService.Register(request);
+                if (user == null) return Results.BadRequest(new { error = "Email sudah digunakan." });
+                return Results.Ok(new { message = "Registrasi berhasil." });
+            }
+            catch (Exception ex)
+            {
+                return Results.Json(new { error = ex.Message, stack = ex.StackTrace, inner = ex.InnerException?.Message }, statusCode: 500);
+            }
         })
         .WithName("Register");
 

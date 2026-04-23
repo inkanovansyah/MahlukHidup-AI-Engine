@@ -9,6 +9,16 @@ public class AppDbContext : DbContext
 
     public DbSet<User> Users => Set<User>();
     
+    // HR / Organization Entities
+    public DbSet<Department> Departments => Set<Department>();
+    public DbSet<JobLevel> JobLevels => Set<JobLevel>();
+    public DbSet<JobPosition> JobPositions => Set<JobPosition>();
+
+    // Request & Workflow Entities
+    public DbSet<MaterialRequest> MaterialRequests => Set<MaterialRequest>();
+    public DbSet<MaterialRequestItem> MaterialRequestItems => Set<MaterialRequestItem>();
+    public DbSet<ApprovalRoute> ApprovalRoutes => Set<ApprovalRoute>();
+    
     // IoT Dashboard Entities
     public DbSet<AgriculturalSector> AgriculturalSectors => Set<AgriculturalSector>();
     public DbSet<SectorSoil> SectorSoils => Set<SectorSoil>();
@@ -37,6 +47,26 @@ public class AppDbContext : DbContext
             entity.HasIndex(u => u.Email).IsUnique();
             entity.Property(u => u.Name).IsRequired().HasMaxLength(100);
             entity.Property(u => u.Email).IsRequired().HasMaxLength(150);
+
+            entity.HasOne(u => u.Department).WithMany().HasForeignKey(u => u.DepartmentId).OnDelete(DeleteBehavior.SetNull);
+            entity.HasOne(u => u.JobLevel).WithMany().HasForeignKey(u => u.JobLevelId).OnDelete(DeleteBehavior.SetNull);
+            entity.HasOne(u => u.JobPosition).WithMany().HasForeignKey(u => u.JobPositionId).OnDelete(DeleteBehavior.SetNull);
+            entity.HasOne(u => u.ReportsToUser).WithMany().HasForeignKey(u => u.ReportsToUserId).OnDelete(DeleteBehavior.SetNull);
+        });
+
+        // Konfigurasi MaterialRequest
+        modelBuilder.Entity<MaterialRequest>(entity =>
+        {
+            entity.HasIndex(m => m.RequestNumber).IsUnique();
+            entity.HasOne(m => m.Requester).WithMany().HasForeignKey(m => m.RequesterId).OnDelete(DeleteBehavior.Restrict);
+            entity.HasOne(m => m.Department).WithMany().HasForeignKey(m => m.DepartmentId).OnDelete(DeleteBehavior.Restrict);
+        });
+
+        // Konfigurasi ApprovalRoute
+        modelBuilder.Entity<ApprovalRoute>(entity =>
+        {
+            entity.HasOne(a => a.MaterialRequest).WithMany(m => m.ApprovalRoutes).HasForeignKey(a => a.MaterialRequestId).OnDelete(DeleteBehavior.Cascade);
+            entity.HasOne(a => a.ApproverUser).WithMany().HasForeignKey(a => a.ApproverUserId).OnDelete(DeleteBehavior.Restrict);
         });
 
         // Konfigurasi tabel Company
